@@ -1,0 +1,126 @@
+﻿@model TodoList.ViewModels.ToDoViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm("Index", "ToDo", FormMethod.Get))
+{
+    <p>
+        @Html.DropDownListFor(model => model.toDoFilterItem, Model.toDoFilterItems)
+        <button type="submit">Filter</button>
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.toDo.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.toDo.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.toDo.Complete)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.toDo.Created)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.toDo.Author)
+        </th>
+       
+        <th></th>
+    </tr>
+    @if (Model.ToDoes != null)
+    {
+        foreach (var item in Model.ToDoes)
+        {
+            if (Model.toDoFilterItem == "Show all")
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @if (item.Complete == true)
+                        {
+                            <span>Complete</span>
+                        }
+                        else
+                        {
+                            <span>Todo</span>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    </td>
+                </tr>
+            }
+            if (Model.toDoFilterItem == "Todo")
+            {
+                if (item.Complete == false)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            <span>Todo</span>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Created)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                        </td>
+                    </tr>
+                }
+
+            }
+            if (Model.toDoFilterItem == "Complete")
+            {
+                if (item.Complete == true)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            <span>Complete</span>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Created)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    }
+
+</table>

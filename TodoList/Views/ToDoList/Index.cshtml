@@ -1,0 +1,23 @@
+﻿@model TodoList.Models.ToDo
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>To Do</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(model => model.Title)
+    @Html.EditorFor(model => model.Title)
+    @Html.LabelFor(model => model.Description)
+    @Html.EditorFor(model => model.Description)
+    
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+
+
